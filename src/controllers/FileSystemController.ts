@@ -1,16 +1,16 @@
 // Imports
-import { Request, Response } from "express";
+import  { Request, Response } from "express";
 import IServiceFS from "../services/IServiceFS";
 import ServiceFS from "../services/ServiceFS";
 
 // Class
 // The controller for file system
 class FileSystemController {
-    private serviceFS: IServiceFS;
+    private service: IServiceFS;
     private static instance: FileSystemController;
 
     private constructor() {
-        this.serviceFS = ServiceFS.getInstance();
+        this.service = ServiceFS.getInstance();
     }
 
     // Singleton pattern
@@ -21,10 +21,16 @@ class FileSystemController {
         return this.instance;
     }
 
-    foo(req: Request, res: Response): void {
-        this.serviceFS.getAllFiles();
-        res.json('prueba');
+    foo = (req: Request, res: Response): Response => {
+        if (!req.params.path) {
+            this.service.getAllFiles('');
+        } else {
+            this.service.getAllFiles(req.params.path);
+        }
+        return res.status(200).json('prueba')
     }
+
+   
 }
 
 // Export

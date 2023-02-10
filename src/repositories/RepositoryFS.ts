@@ -15,15 +15,15 @@ class RepositoryFS implements IRepositoryFS {
         return this.instance;
     }
 
-    getAllFiles(): string {
+    getAllFiles(path: string): string {
         return "";
     }
 
-    insertFile(): boolean {
+    insertFile(path: string): boolean {
         return true;
     }
 
-    updateFile(): boolean {
+    updateFile(path: string): boolean {
         return true;
     }
 }

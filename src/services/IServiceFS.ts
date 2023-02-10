@@ -2,11 +2,11 @@
 
 // Interface
 interface IServiceFS {
-    getAllFiles(): string;
-    insertFile(): boolean;
-    updateFile(): boolean;
-    getFiles(): string;
-    getDirectories(): string;
+    getAllFiles(path: string): string;
+    insertFile(path: string): boolean;
+    updateFile(path: string): boolean;
+    getFiles(path: string): string;
+    getDirectories(path: string): string;
 }
 
 // Export

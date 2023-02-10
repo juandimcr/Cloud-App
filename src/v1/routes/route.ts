@@ -22,7 +22,7 @@ class RouteServerV1 {
     }
 
     fsRoutes(): express.Router {
-        this.router.get('/', this.fileSystemController.foo);
+        this.router.get('/:path?', this.fileSystemController.foo);
 
         return this.router;
     }

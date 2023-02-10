@@ -2,9 +2,9 @@
 
 // Interface
 interface IRepositoryFS {
-    getAllFiles(): string;
-    insertFile(): boolean;
-    updateFile(): boolean;
+    getAllFiles(path: string): string;
+    insertFile(path: string): boolean;
+    updateFile(path: string): boolean;
 }
 
 // Exports

@@ -1,44 +1,53 @@
 // Imports
 import IRepositoryFS from "../repositories/IRepositoryFS";
 import RepositoryFS from "../repositories/RepositoryFS";
+import ConvertPath from "../util/ConvertPath";
+import IConvertPath from "../util/IConvertPath";
 import IServiceFS from "./IServiceFS";
 
 
 // Class
 class ServiceFS implements IServiceFS {
     private repositoryFS: IRepositoryFS;
-    private static instance: IServiceFS;
+    private convertPath: IConvertPath;
+    private static instance: ServiceFS;
 
-    private constructor() {
+     constructor() {
         this.repositoryFS = RepositoryFS.getInstance();
+        this.convertPath = new ConvertPath();
     }
 
     // Singleton pattern
-    static getInstance(): IServiceFS {
+    static getInstance(): ServiceFS {
         if (!this.instance) {
             this.instance = new ServiceFS();
         }
+        
         return this.instance;
     }
 
-    getAllFiles(): string {
-        this.repositoryFS.getAllFiles();
-        return "";
+    getAllFiles(path: string): string {
+        console.log(this.convertPath.convertPath(path))
+        this.repositoryFS.getAllFiles(path)
+        
+        return "dwwd";
     }
 
-    insertFile(): boolean {
+    insertFile(path: string): boolean {
         return true;
     }
 
-    updateFile(): boolean {
+    updateFile(path: string): boolean {
         return true;
     }
 
-    getFiles(): string {
-        return "";
+    getFiles(path: string): string {
+        // Meter cmo parametro lo que devuelva getAllFiles y aqui devolver un json con los ficheros
+        return "wwdwd";
     }
 
-    getDirectories(): string {
+    getDirectories(path: string): string {
+        // Meter cmo parametro lo que devuelva getAllFiles y aqui devolver un json con los directorios
         return "";
     }
 }

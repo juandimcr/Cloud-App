@@ -33,7 +33,7 @@ class Server {
     }
 
     routes(): void {
-        this.server.use(this.routerV1.fsRoutes());
+        this.server.use('/api/v1/', this.routerV1.fsRoutes());
     }
 
     start(): void {

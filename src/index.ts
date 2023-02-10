@@ -1,5 +1,5 @@
 // Imports
-import { config } from "dotenv";('dotenv');
+import { config } from "dotenv";
 import Server from "./server";
 
 // Config dotenv
