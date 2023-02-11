@@ -1,5 +1,5 @@
 // Imports
-import  { Request, Response } from "express";
+import { Request, Response } from "express";
 import IServiceFS from "../services/IServiceFS";
 import ServiceFS from "../services/ServiceFS";
 
@@ -21,16 +21,36 @@ class FileSystemController {
         return this.instance;
     }
 
-    foo = (req: Request, res: Response): Response => {
-        if (!req.params.path) {
-            this.service.getAllFiles('');
-        } else {
-            this.service.getAllFiles(req.params.path);
+    async getContentOfDir(req: Request, res: Response): Promise<Response<any, Record<string, any>>> {
+        try {
+            let path = '';
+            if (req.params.path) {
+                path = req.params.path;
+            }
+            const content = await this.service.getAllFiles(path);
+            // Log content
+            console.log(content)
+            return res.status(200).json(content);
+        } catch (error) {
+            console.error(`The path '${req.params.path}' does not exit`)
+            return res.status(404).json('Directory or file not found');
         }
-        return res.status(200).json('prueba')
     }
 
-   
+    async updateDirOrFileName(req: Request, res: Response): Promise<Response<any, Record<string, any>>> {
+        try {
+            let path = '';
+            if (req.params.path) {
+                path = req.params.path;
+            }
+            return res.status(200).json(path);
+        } catch (error) {
+            console.error(`The path '${req.params.path}' does not exit`)
+            return res.status(404).json('Directory or file not found');
+        }
+    }
+
+
 }
 
 // Export

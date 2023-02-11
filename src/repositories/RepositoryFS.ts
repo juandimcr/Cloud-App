@@ -1,5 +1,7 @@
 // Imports
 import IRepositoryFS from "./IRepositoryFS";
+import fs from 'fs/promises';
+import { Dir } from "fs";
 
 // Class
 class RepositoryFS implements IRepositoryFS {
@@ -15,8 +17,14 @@ class RepositoryFS implements IRepositoryFS {
         return this.instance;
     }
 
-    getAllFiles(path: string): string {
-        return "";
+    async getAllFiles(path: string): Promise<Dir> {
+        try {
+            console.log(`The path is: ${path}`);
+            const dir = await fs.opendir(path);
+            return dir;
+        } catch (err) {
+            throw err;
+        }
     }
 
     insertFile(path: string): boolean {

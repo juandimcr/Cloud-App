@@ -1,8 +1,10 @@
 // Imports
 
+import { Dir } from "fs";
+
 // Interface
 interface IRepositoryFS {
-    getAllFiles(path: string): string;
+    getAllFiles(path: string): Promise<Dir>;
     insertFile(path: string): boolean;
     updateFile(path: string): boolean;
 }

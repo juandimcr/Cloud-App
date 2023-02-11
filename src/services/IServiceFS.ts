@@ -1,12 +1,13 @@
 // Imports
 
+import { Dir } from "fs";
+
 // Interface
 interface IServiceFS {
-    getAllFiles(path: string): string;
+    getAllFiles(path: string): Promise<{ directories: string[], files: string[] }>;
     insertFile(path: string): boolean;
     updateFile(path: string): boolean;
-    getFiles(path: string): string;
-    getDirectories(path: string): string;
+    getContentOfDir(dir: Dir): Promise<{ directories: string[], files: string[] }>;
 }
 
 // Export

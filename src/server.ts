@@ -2,7 +2,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import RouteServerV1 from './v1/routes/route';
+import RouteServerV1 from './v1/routes/RouteServerV1';
 
 // Class server
 

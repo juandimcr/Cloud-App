@@ -1,4 +1,5 @@
 // Imports
+import { Dir } from "fs";
 import IRepositoryFS from "../repositories/IRepositoryFS";
 import RepositoryFS from "../repositories/RepositoryFS";
 import ConvertPath from "../util/ConvertPath";
@@ -12,7 +13,7 @@ class ServiceFS implements IServiceFS {
     private convertPath: IConvertPath;
     private static instance: ServiceFS;
 
-     constructor() {
+    constructor() {
         this.repositoryFS = RepositoryFS.getInstance();
         this.convertPath = new ConvertPath();
     }
@@ -22,15 +23,21 @@ class ServiceFS implements IServiceFS {
         if (!this.instance) {
             this.instance = new ServiceFS();
         }
-        
+
         return this.instance;
     }
 
-    getAllFiles(path: string): string {
-        console.log(this.convertPath.convertPath(path))
-        this.repositoryFS.getAllFiles(path)
-        
-        return "dwwd";
+    async getAllFiles(path: string): Promise<{ directories: string[], files: string[] }> {
+        try {
+            const pathProcessed = this.convertPath.convertPath(path);
+            const dir = await this.repositoryFS.getAllFiles(pathProcessed);
+
+            // Return content of directory
+            const content = await this.getContentOfDir(dir);    
+            return content;
+        } catch (error) {
+            throw error;
+        }
     }
 
     insertFile(path: string): boolean {
@@ -41,14 +48,22 @@ class ServiceFS implements IServiceFS {
         return true;
     }
 
-    getFiles(path: string): string {
-        // Meter cmo parametro lo que devuelva getAllFiles y aqui devolver un json con los ficheros
-        return "wwdwd";
-    }
+    async getContentOfDir(dir: Dir): Promise<{ directories: string[], files: string[] }> {
+        try {
+            const content: { directories: string[], files: string[] } = {directories: [], files: []};
+            for await (const dirent of dir) {
+                if (dirent.isFile()) {
+                    content.files.push(dirent.name);
+                } else if (dirent.isDirectory()) {
+                    content.directories.push(dirent.name);
+                }
+            }
+            return content;
 
-    getDirectories(path: string): string {
-        // Meter cmo parametro lo que devuelva getAllFiles y aqui devolver un json con los directorios
-        return "";
+        } catch (error) {
+            console.log("dir closed");
+            throw error;
+        }
     }
 }
 
