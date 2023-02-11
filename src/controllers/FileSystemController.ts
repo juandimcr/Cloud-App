@@ -43,6 +43,10 @@ class FileSystemController {
             if (req.params.path) {
                 path = req.params.path;
             }
+            console.log(req.body);
+            if (!req.body.name) {
+                return res.status(400).json('Not found "name" parameter in the body ');
+            }
             return res.status(200).json(path);
         } catch (error) {
             console.error(`The path '${req.params.path}' does not exit`)

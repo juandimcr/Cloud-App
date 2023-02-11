@@ -44,7 +44,8 @@ class ServiceFS implements IServiceFS {
         return true;
     }
 
-    updateFile(path: string): boolean {
+    updateDirOrFileName(path: string, newName: string): boolean {
+
         return true;
     }
 

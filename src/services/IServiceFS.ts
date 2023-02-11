@@ -6,7 +6,7 @@ import { Dir } from "fs";
 interface IServiceFS {
     getAllFiles(path: string): Promise<{ directories: string[], files: string[] }>;
     insertFile(path: string): boolean;
-    updateFile(path: string): boolean;
+    updateDirOrFileName(path: string, newName: string): boolean;
     getContentOfDir(dir: Dir): Promise<{ directories: string[], files: string[] }>;
 }
 
