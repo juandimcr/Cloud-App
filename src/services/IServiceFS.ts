@@ -10,6 +10,7 @@ interface IServiceFS {
     updateDirOrFileName(path: string, newName: string): Promise<boolean>;
     deleteFileOrDir(path: string): Promise<boolean>;
     getContentOfDir(dir: Dir): Promise<{ directories: string[], files: string[] }>;
+    downloadFile(path: string): Promise<{ pathProc: string; file: Buffer; }>;
 }
 
 // Export

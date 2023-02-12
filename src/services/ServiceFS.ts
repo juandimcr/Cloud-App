@@ -102,6 +102,17 @@ class ServiceFS implements IServiceFS {
             throw error;
         }
     }
+
+    async downloadFile(path: string): Promise<{ pathProc: string; file: Buffer; }> {
+        try {
+            const pathProcessed = this.convertPath.convertPath(path);
+            const file = await this.repositoryFS.downloadFile(pathProcessed);
+            const content = { pathProc: pathProcessed, file: file };
+            return content;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 // Exports

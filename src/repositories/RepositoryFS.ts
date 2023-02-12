@@ -80,6 +80,14 @@ class RepositoryFS implements IRepositoryFS {
             throw error;
         }
     }
+
+    async downloadFile(path: string): Promise<Buffer> {
+        try {
+            return await fs.readFile(path);
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 // Export

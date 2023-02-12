@@ -1,5 +1,6 @@
 // Imports
 import { Request, Response } from "express";
+import mime from "mime";
 import IServiceFS from "../services/IServiceFS";
 import ServiceFS from "../services/ServiceFS";
 
@@ -110,6 +111,27 @@ class FileSystemController {
         } catch (error) {
             console.error(error);
             return res.status(404).json('Directory not found');
+        }
+    }
+
+    async downloadFiles(req: Request, res: Response): Promise<Response<any, Record<string, any>>> {
+        try {
+            let path = '';
+            if (req.params.path) {
+                path = req.params.path;
+            } else {
+                res.status(404).json('Path not found');
+            }
+            
+            const content = await this.service.downloadFile(path);
+            const mimeType = mime.getType(content.pathProc) || "";
+            
+            res.setHeader('Content-Disposition', `attachment; filename=${content.pathProc}`)
+            res.setHeader('Content-Type', mimeType);
+            return res.status(200).send(content.file);
+        } catch (error) {
+            console.error(error);
+            return res.status(404).json('File not found');
         }
     }
 
