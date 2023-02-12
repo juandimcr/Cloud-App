@@ -26,7 +26,7 @@ class RouteServerV1 {
     fsRoutes(): express.Router {
         this.router.get('/:path?', this.fileSystemController.getContentOfDir.bind(this.fileSystemController));
         this.router.get('/download/:path?', this.fileSystemController.downloadFiles.bind(this.fileSystemController));
-        this.router.post('/:path?', this.fileSystemController.insertDir.bind(this.fileSystemController));
+        this.router.post('/:path?', this.fileSystemController.createDir.bind(this.fileSystemController));
         this.router.post('/upload/:path?', this.fileSystemController.insertFilesFromClient.bind(this.fileSystemController));
         this.router.put('/:path?', this.fileSystemController.updateDirOrFileName.bind(this.fileSystemController));
         this.router.delete('/:path?', this.fileSystemController.deleteFileOrDir.bind(this.fileSystemController));

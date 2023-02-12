@@ -78,17 +78,17 @@ class FileSystemController {
         }
     }
 
-    async insertDir(req: Request, res: Response): Promise<Response<any, Record<string, any>>> {
+    async createDir(req: Request, res: Response): Promise<Response<any, Record<string, any>>> {
         try {
             let path = '';
             if (req.params.path) {
                 path = req.params.path;
             } else {
-                return res.status(404).json('Path not found')
+                return res.status(404).json('Path not indicated')
             }
             
             await this.service.insertDir(path);
-            return res.status(200).json(`The directory [${path}] has been added`);
+            return res.status(201).json(`The directory [${path}] has been created`);
         } catch (error) {
             console.error(error);
             return res.status(404).json('Directory already exists');
@@ -107,7 +107,7 @@ class FileSystemController {
             }
             
             await this.service.insertFiles(req.files.files, path);
-            return res.status(200).json(`The files has been added`);
+            return res.status(201).json(`The files has been added`);
         } catch (error) {
             console.error(error);
             return res.status(404).json('Directory not found');
@@ -120,13 +120,13 @@ class FileSystemController {
             if (req.params.path) {
                 path = req.params.path;
             } else {
-                res.status(404).json('Path not found');
+                res.status(404).json('File not found');
             }
             
             const content = await this.service.downloadFile(path);
             const mimeType = mime.getType(content.pathProc) || "";
             
-            res.setHeader('Content-Disposition', `attachment; filename=${content.pathProc}`)
+            res.setHeader('Content-Disposition', `attachment; filename=${content.pathProc}`);
             res.setHeader('Content-Type', mimeType);
             return res.status(200).send(content.file);
         } catch (error) {
@@ -134,7 +134,6 @@ class FileSystemController {
             return res.status(404).json('File not found');
         }
     }
-
 }
 
 // Export
