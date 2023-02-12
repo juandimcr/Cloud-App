@@ -1,4 +1,5 @@
 // Imports
+import fileUpload from "express-fileupload";
 import { Dir } from "fs";
 import IRepositoryFS from "../repositories/IRepositoryFS";
 import RepositoryFS from "../repositories/RepositoryFS";
@@ -33,25 +34,60 @@ class ServiceFS implements IServiceFS {
             const dir = await this.repositoryFS.getAllFiles(pathProcessed);
 
             // Return content of directory
-            const content = await this.getContentOfDir(dir);    
+            const content = await this.getContentOfDir(dir);
             return content;
         } catch (error) {
             throw error;
         }
     }
 
-    insertFile(path: string): boolean {
-        return true;
+    async insertDir(path: string): Promise<boolean> {
+        try {
+            const pathProcessed = this.convertPath.convertPath(path);
+            return await this.repositoryFS.insertDir(pathProcessed);
+            
+        } catch (error) {
+            throw error;
+        }
     }
 
-    updateDirOrFileName(path: string, newName: string): boolean {
+    async insertFiles(files: fileUpload.UploadedFile | fileUpload.UploadedFile[], path: string ): Promise<boolean> {
+        try {
+            const pathProcessed = this.convertPath.convertPath(path);
+            console.log(pathProcessed);
+            if (Array.isArray(files)) {
+                return await this.repositoryFS.insertFiles(files, pathProcessed);
+            } else {
+                return await this.repositoryFS.insertFile(files, pathProcessed);
+            }
+    
+        } catch (error) {
+            throw error;
+        }
+    }
 
-        return true;
+    async updateDirOrFileName(path: string, newName: string): Promise<boolean> {
+        try {
+            const oldPath = this.convertPath.convertPath(path);
+            const newPath = this.convertPath.updatePath(oldPath, newName);
+            return await this.repositoryFS.updateFile(oldPath, newPath);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteFileOrDir(path: string): Promise<boolean> {
+        try {
+            const pathProcessed = this.convertPath.convertPath(path);
+            return await this.repositoryFS.deleteFile(pathProcessed);
+        } catch (error) {
+            throw error;
+        }
     }
 
     async getContentOfDir(dir: Dir): Promise<{ directories: string[], files: string[] }> {
         try {
-            const content: { directories: string[], files: string[] } = {directories: [], files: []};
+            const content: { directories: string[], files: string[] } = { directories: [], files: [] };
             for await (const dirent of dir) {
                 if (dirent.isFile()) {
                     content.files.push(dirent.name);

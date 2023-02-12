@@ -1,12 +1,14 @@
 // Imports
-
+import fileUpload from "express-fileupload";
 import { Dir } from "fs";
 
 // Interface
 interface IServiceFS {
     getAllFiles(path: string): Promise<{ directories: string[], files: string[] }>;
-    insertFile(path: string): boolean;
-    updateDirOrFileName(path: string, newName: string): boolean;
+    insertDir(path: string): Promise<boolean>;
+    insertFiles(files: fileUpload.UploadedFile | fileUpload.UploadedFile[], path: string): Promise<boolean>; // Files from the client
+    updateDirOrFileName(path: string, newName: string): Promise<boolean>;
+    deleteFileOrDir(path: string): Promise<boolean>;
     getContentOfDir(dir: Dir): Promise<{ directories: string[], files: string[] }>;
 }
 
