@@ -1,6 +1,3 @@
-# Cosas que faltas
-+ Añadir redis para mejorar la rapidez de la api
-
 # Cloud App 
 Documentación para la API Cloud App
 
