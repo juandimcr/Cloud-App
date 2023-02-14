@@ -1,7 +1,5 @@
 # Cloud App 
-Documentación para la API Contacts App
-[Contacts App API](http://localhost:5173).
-Server: https://localhost:3000
+Documentación para la API Cloud App
 
 # ¿Cómo poner la ruta de la carpeta que queremos usar?
 + Hay que crear un fichero .env en la carpeta Server y añadir lo siguiente:
@@ -54,7 +52,8 @@ Crear directorio
 
 + Responses:
     + 201 - Directorio creado
-    + 404 - Directorio ya existente o ruta no indicada
+    + 404 - Ruta no indicada
+    + 409 - Directorio o fichero ya existente
 
 + Información necesaria para crear un directorio:
     + Path - ruta del directorio, por ejemplo, path = prueba-dirDePrueba. Se crea dirDePrueba dentro de prueba
@@ -95,8 +94,8 @@ Cambiar el nombre a un directorio o fichero
 
 + Responses:
     + 200 - Todo ha ido bien y se cambia el nombre al fichero o directorio
-    + 400 - No se ha encontrado el parametro 'name' en el json de solicitud
-    + 404 - No existe el fichero o directorio o no se ha puesto la extensión del fichero en el parametro name
+    + 400 - No se ha encontrado el parametro 'name' en el json de solicitud o tiene un '-' en el nombre
+    + 404 - No existe el fichero o directorio
 
 + Información necesaria para cambiar nombre al directorio o fichero:
     + name - nuevo nombre

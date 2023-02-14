@@ -7,6 +7,7 @@ config();
 
 // Start server
 const server = Server.getInstance(Number(process.env.PORT) || 3000);
-server.config();
+server.setMiddlewares();
 server.routes();
+server.setErrorMiddlewares();
 server.start();

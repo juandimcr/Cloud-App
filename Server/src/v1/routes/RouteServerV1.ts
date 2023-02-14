@@ -2,17 +2,21 @@
 import express from "express";
 import fileUplodad from "express-fileupload";
 import FileSystemController from "../../controllers/FileSystemController";
+import IValidator from "../../middlewares/IValidator";
+import Validator from "../../middlewares/Validator";
 
 // Class Route
 class RouteServerV1 {
     private router: express.Router;
     private fileSystemController: FileSystemController;
+    private validator: IValidator;
     private static instance: RouteServerV1;
 
     private constructor() {
         this.router = express.Router();
         this.router.use(fileUplodad());
         this.fileSystemController = FileSystemController.getInstance();
+        this.validator = Validator.getInstance();
     }
 
     // Singleton pattern
@@ -25,11 +29,11 @@ class RouteServerV1 {
 
     fsRoutes(): express.Router {
         this.router.get('/:path?', this.fileSystemController.getContentOfDir.bind(this.fileSystemController));
-        this.router.get('/download/:path?', this.fileSystemController.downloadFiles.bind(this.fileSystemController));
-        this.router.post('/:path?', this.fileSystemController.createDir.bind(this.fileSystemController));
+        this.router.get('/files/download/:path?', this.validator.checkEmptyPath, this.fileSystemController.downloadFiles.bind(this.fileSystemController));
+        this.router.post('/:path?', this.validator.checkEmptyPath, this.fileSystemController.createDir.bind(this.fileSystemController));
         this.router.post('/upload/:path?', this.fileSystemController.insertFilesFromClient.bind(this.fileSystemController));
-        this.router.put('/:path?', this.fileSystemController.updateDirOrFileName.bind(this.fileSystemController));
-        this.router.delete('/:path?', this.fileSystemController.deleteFileOrDir.bind(this.fileSystemController));
+        this.router.put('/:path?', this.validator.checkEmptyPath, this.validator.checkNameBodyParameter, this.fileSystemController.updateDirOrFileName.bind(this.fileSystemController));
+        this.router.delete('/:path?', this.validator.checkEmptyPath, this.fileSystemController.deleteFileOrDir.bind(this.fileSystemController));
 
         return this.router;
     }
