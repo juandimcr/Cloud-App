@@ -1,3 +1,8 @@
+# Cosas que faltas
++ Carpeta errors para crear nuevos errores, para cuando no exista la path o la path sea ''.
++ carpeta middlewares y crear middleware para errores y otra para validaciones
++ Añadir redis para mejorar la rapidez de la api
+
 # Cloud App 
 Documentación para la API Cloud App
 
