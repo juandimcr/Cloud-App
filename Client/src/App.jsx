@@ -1,14 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+// Imports
+import { Routes, Route } from "react-router-dom";
+import MainPage from "./components/MainPage";
 
 function App() {
 
   return (
-    <div className="App">
-      <h1>App</h1>
-    </div>
+    <>
+      <Routes>
+      <Route path="/:path?" element={<MainPage />} />
+      </Routes>
+    </>
   )
 }
 
-export default App
+export default App;
