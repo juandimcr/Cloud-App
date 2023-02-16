@@ -34,7 +34,7 @@ Devuelve todos los directorios y ficheros de la ruta pasada en la url. Si no se 
 
     ```
 
-## GET [/api/v1/download/{path?}]
+## GET [/api/v1/files/download/{path?}]
 Descarga el fichero indicado
 
 + Parameters
@@ -65,7 +65,7 @@ NOTA: no poner nombres que contienen '-', es un carácter especial para el servi
         "The directory [path] has been created"
     }
     ```
-## POST [/api/v1/upload/{path?}]
+## POST [/api/v1/files/upload/{path?}]
 Subir ficheros al servidor
 
 + Parameters
@@ -148,7 +148,32 @@ Eliminar un directorio o fichero
 + El servidor se ejecutará en localhost:3000 y el cliente en localhost:5173
 
 
-# Imágenes del cliente
+# Mini demo en react
+Mini cliente para mostrar la funcionalidad de la API.
 
+## Página principal
+![Página principal](doc/home.PNG)
 
+## Formulario crear nuevo directorio
+![Formulario nuevo directorio](doc/new-dir.PNG)
 
+## Página después de subir ficheros al servidor
+![Subir ficheros](doc/after-upload.PNG)
+
+## Página después de crear el directorio
+![Página después de insertar directorio](doc/after-create.PNG)
+
+## Formulario cambiar nombre al directorio o fichero
+![Formulario cambiar nombre](doc/edit.PNG)
+
+## Página dentro de un directorio
+![Página directorio](doc/inside-dir.PNG)
+
+## Descarga de ficheros
+![Descargar fichero](doc/download-file.PNG)
+
+## Página después de eliminar un fichero
+![Eliminar fichero](doc/delete-file.PNG)
+
+## Página después de eliminar un directorio
+![Eliminar directorio](doc/del-dir.PNG)

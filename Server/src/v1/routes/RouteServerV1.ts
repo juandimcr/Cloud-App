@@ -31,7 +31,7 @@ class RouteServerV1 {
         this.router.get('/:path?', this.fileSystemController.getContentOfDir.bind(this.fileSystemController));
         this.router.get('/files/download/:path?', this.validator.checkEmptyPath, this.fileSystemController.downloadFiles.bind(this.fileSystemController));
         this.router.post('/:path?', this.validator.checkEmptyPath, this.fileSystemController.createDir.bind(this.fileSystemController));
-        this.router.post('/upload/:path?', this.fileSystemController.insertFilesFromClient.bind(this.fileSystemController));
+        this.router.post('/files/upload/:path?', this.fileSystemController.insertFilesFromClient.bind(this.fileSystemController));
         this.router.put('/:path?', this.validator.checkEmptyPath, this.validator.checkNameBodyParameter, this.fileSystemController.updateDirOrFileName.bind(this.fileSystemController));
         this.router.delete('/:path?', this.validator.checkEmptyPath, this.fileSystemController.deleteFileOrDir.bind(this.fileSystemController));
 

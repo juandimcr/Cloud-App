@@ -57,6 +57,20 @@ export async function createDir(path, dirName) {
     });
 }
 
-export async function insertFilesFromClient(filePath, path) {
+export async function insertFilesFromClient(path, files) {
+    console.log(path)
+    const formData = new FormData();
+    let size = 0;
+    for (const file of files) {
+        formData.append('files', file, file.name);
+        size += file.size;
+    }
     
+    await fetch(`${url}/files/upload/${path}`, {
+        method: 'POST',
+        headers: {
+            'Content-Length': size,
+        },
+        body: formData,
+    })
 }
