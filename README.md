@@ -141,7 +141,7 @@ Eliminar un directorio o fichero
 
 + Ejecutar el minicliente en React
     ```shell
-        cd Frontend-React
+        cd Client
         npm run dev
     ```
 
